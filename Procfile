@@ -1,0 +1,1 @@
+web: gunicorn arazz.wsgi --log-file -

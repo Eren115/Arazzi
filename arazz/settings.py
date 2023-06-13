@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import mimetypes
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,16 +26,11 @@ SECRET_KEY = "django-insecure-5h0(-#scvia^=p01nmy^)2arttahl!pfs45xo4jm!(9oid7-&p
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-mimetypes.add_type("text/css", ".css", True)
 
-ALLOWED_HOSTS = [
-    "192.168.1.105",
-    "192.168.98.124",
-    "arazzi-production.up.railway.app",
-    "104.196.232.237",
-    "localhost",
-    "127.0.0.1",
-]
+
+CSRF_TRUSTED_ORIGINS = ['https://arazzi-production.up.railway.app/']
+
+ALLOWED_HOSTS = ['*']
 
 STRIPE_PUB_KEY = "pk_test_51ISmOsCIPgjpI55pH80EavO9ZoiQrJMP4abLzJkpsbndO0gOdpsANFm3FJRSrxH2Fp2dlLQqGzEiihaix7CYwipM00Up10aeMo"
 STRIPE_SECRET_KEY = "sk_test_51ISmOsCIPgjpI55pJB2xWA7cYCiMfVPic5lo8m7pnuLzExOo4YqZ7dazr7j2OqflRbqcBN1HSRHjmApXKchtlpqj00nLpvjdQL"
@@ -135,13 +130,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATIC_URL = "/staticfiles/"
+STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-)
+STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media/"
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
