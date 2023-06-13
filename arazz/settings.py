@@ -28,9 +28,9 @@ SECRET_KEY = "django-insecure-5h0(-#scvia^=p01nmy^)2arttahl!pfs45xo4jm!(9oid7-&p
 DEBUG = True
 
 
-CSRF_TRUSTED_ORIGINS = ['https://arazzi-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ["https://arazzi-production.up.railway.app"]
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 STRIPE_PUB_KEY = "pk_test_51ISmOsCIPgjpI55pH80EavO9ZoiQrJMP4abLzJkpsbndO0gOdpsANFm3FJRSrxH2Fp2dlLQqGzEiihaix7CYwipM00Up10aeMo"
 STRIPE_SECRET_KEY = "sk_test_51ISmOsCIPgjpI55pJB2xWA7cYCiMfVPic5lo8m7pnuLzExOo4YqZ7dazr7j2OqflRbqcBN1HSRHjmApXKchtlpqj00nLpvjdQL"
