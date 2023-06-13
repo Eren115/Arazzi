@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arazzi Contemporanei</title>
+    <link rel="stylesheet" href="{% static "styles/index.css" %}">
+    <link rel="icon" type="image/png" href="https://uploads-ssl.webflow.com/60bf7c4551582374f4fc24f2/61e1b108ea218d19ebcbc3eb_Tavola%20disegno%207CSS.jpg">
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="app__div1">
+        <div class="app__div2">
+            <div class="nav__div1">
+                <div class="nav__div2">
+                    <div class="nav__div3">
+                        <div class="nav__div4">
+                            <div class="nav__div5"><a style="text-decoration: none;" href="{% url 'frontpage' %}"><p>Arazzi Contemporanei</p></a></div>
+                        </div>
+                        <div class="nav__div6">
+                            <div class="nav__div7">
+                                <div class="nav__div8"><p><a style="text-decoration: none;" href="{% url 'gallery' %}">GALLERY</a></p></div>
+                            </div>
+                            <div class="nav__div9">
+                                <div class="nav__div10" id="nav__div10">
+                                    
+                                    {% if cart|length == 0 %} 
+                                        <p id="t">CART ( 0 )</p>
+                                    {% else %}
+                                        <p id="t">CART ( {{ cart|length }} )</p>
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav__div11">
+                        <div class="nav__div12">
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>ABOUT</p></div>
+                            </div>
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>BOOKSHOP</p></div>
+                            </div>
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>ARTISTS</p></div>
+                            </div>
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>CONTACTS</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="home__div1">
+                {% block content %}
+                  
+                {% endblock content %}
+                
+            </div>
+        </div>
+    </div>
+    {% block script %}
+      
+    {% endblock script %}
+    <script src="{% static "js/swiper.js" %}"></script>
+    <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+</body>
+</html>

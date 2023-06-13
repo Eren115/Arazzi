@@ -1,0 +1,511 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arazzi Contemporanei</title>
+    <link rel="stylesheet" href="{% static "styles/checko.css" %}">
+    <link rel="icon" type="image/png" href="https://uploads-ssl.webflow.com/60bf7c4551582374f4fc24f2/61e1b108ea218d19ebcbc3eb_Tavola%20disegno%207CSS.jpg">
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/htmx.org@1.8.6" integrity="sha384-Bj8qm/6B+71E6FQSySofJOUjA/gq330vEqjFx9LakWybUySyI1IQHwPtbTU7bNwx" crossorigin="anonymous"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+    <div class="app__div1">
+        <div class="app__div2">
+            <div class="nav__div1">
+                <div class="nav__div2">
+                    <div class="nav__div3">
+                        <div class="nav__div4">
+                            <div class="nav__div5"><a style="text-decoration: none;" href="{% url 'frontpage' %}"><p>Arazzi Contemporanei</p></a></div>
+                        </div>
+                        <div class="nav__div6">
+                            <div class="nav__div7">
+                                <div class="nav__div8"><p><a style="text-decoration: none;" href="{% url 'gallery' %}">GALLERY</a></p></div>
+                            </div>
+                            <div class="nav__div9">
+                                <div class="nav__div10">
+                                    {% if cart|length == 0 %} 
+                                        <p id="t">CART ( 0 )</p>
+                                    {% else %}
+                                        <p id="t">CART ( {{ cart|length }} )</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav__div11">
+                        <div class="nav__div12">
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>ABOUT</p></div>
+                            </div>
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>BOOKSHOP</p></div>
+                            </div>
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>ARTISTS</p></div>
+                            </div>
+                            <div class="nav__div13">
+                                <div class="nav__div14"><p>CONTACTS</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="home__div1">
+                <form action="." method="post" id="payment-form">
+                <div class="check__div1">
+                    <div class="check__div2">
+                            {% csrf_token %}
+                            <div class="check__div3">
+                                <div class="check__div4">
+                                    <p>Checkout</p>
+                                </div>
+                                <div class="check__div5">
+                                    <div class="check__div6">
+                                        <p>Customer Info</p>
+                                        <p>* Required</p>
+                                    </div>
+                                    <div class="check__div7">
+                                            <p>Email *</p>
+                                            <input type="email" name="email" id="" class="check__input1" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="check__div8">
+                                    <div class="check__div9">
+                                        <div class="check__div10">
+                                            <p>Shipping Address</p>
+                                            <p>* Required</p>
+                                        </div>
+                                        <div class="check__div010">
+                                            <div class="check__div11">
+                                                <div class="chck__div12">
+                                                    <p>Full Name *</p>
+                                                    <input type="text" name="full_name" id="" class="check__input1" required>
+                                                </div>
+                                            </div>
+                                            <div class="check__div11">
+                                                <div class="chck__div12">
+                                                    <p>Street Address *</p>
+                                                    <input type="text" name="street_address" id="" class="check__input1" required> 
+                                                </div>
+                                            </div>
+                                            <div class="check__div13">
+                                                <div class="check__div11">
+                                                    <div class="chck__div12">
+                                                        <p>City *</p>
+                                                        <input type="text" name="city" id="" class="check__input1" required> 
+                                                    </div>
+                                                </div>
+                                                <div class="check__div11">
+                                                    <div class="chck__div12">
+                                                        <p>State/Province *</p>
+                                                        <input type="text" name="state" id="" class="check__input1" required> 
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="check__div11">
+                                                    <div class="chck__div12">
+                                                        <p>Zip/Postal Code *</p>
+                                                        <input type="text" name="zip" id="" class="check__input1" required> 
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="check__div14">
+                                    <div class="check__div15">
+                                        <div class="check__div16">
+                                            <p>Payment Info</p>
+                                            <p>* Required</p>
+                                        </div>
+                                        <div class="check__div17" id="card-element">
+                                            <div class="check__div18">
+                                                <div class="chck__div12">
+                                                    <p>Card Number *</p>
+                                                    <input type="text" name="" id="" class="check__input1">
+                                                </div>
+                                            </div>
+                                            <div class="check__div19">
+                                                <div class="chck__div12">
+                                                    <p>Expiration Date *</p>
+                                                    <input type="text" name="" id="" class="check__input1">
+                                                </div>
+                                                <div class="chck__div12">
+                                                    <p>Security Code *</p>
+                                                    <input type="text" name="" id="" class="check__input1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="check__div20">
+                                    <div class="check__div21">
+                                        <p>Items in Order</p>
+                                        <div id="hhh">
+                                            {% for item in cart %}
+                                        <div class="check__div22">
+                                            <div class="check__div23">
+                                                <div class="check__div24">
+                                                    <img src="{{item.product.get_thumbnail}}" class="check__img1" alt="">
+                                                </div>
+                                                <div class="check__div25">
+                                                    <p>{{item.product.title}}</p>
+                                                    <p>Quantity: {{item.quantity}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="check__div26">
+                                                <p>₹{{ item.total_price }}.000</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="left__check1">
+                        <div class="left__check01">
+                            <div class="left__check001">
+                                <div class="left__check2">
+                                    <div class="left__check002">
+                                        <p>Order Summary</p>
+                                    <div class="left__check3">
+                                        <div class="left__check4">
+                                            <p>Subtotal</p>
+                                            <p id="fir">₹{{ cart.get_total_cost }}.000</p>
+                                        </div>
+                                        <div class="left__check4">
+                                            <p>Free shipping</p>
+                                            <p>₹0.000</p>
+                                        </div>
+                                        <div class="left__check4">
+                                            <p>Total</p>
+                                            <p id="sec">₹{{ cart.get_total_cost }}.000</p>
+                                        </div>
+                                    </div>
+                                    
+
+                                        <div class="left__check5" id="npc">
+                                            {% if cart|length == 0 %}
+                                            <div></div>
+                                            {% else %}
+                                            <div class="left__check6">
+                                                <button class="ww"><p>Place Order</p></button>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+{% if cart|length == 0 %}
+<div class="spe__div25" id="spe__div25">
+  <div class="spe__div26">
+      <div class="spe__div27">
+          <div class="spe__div28">
+              <p>YOUR CART</p>
+              <svg class="icon spe__svg" width="16px" height="16px" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#333333"><polygon points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"></polygon></g></g></svg>
+          </div>
+          <div class="spe__line"></div>
+          <div class="nn" id="nn">
+              
+          </div>
+          
+          <div id="emt" style="margin-top: 0.5vw !important;"><p>Cart is Empty</p></div>
+          
+          <div id="nig"></div>
+          </div>
+      </div>
+      </div>
+  {% else %}
+  <div class="spe__div25" id="spe__div25">
+      <div class="spe__div26">
+          <div class="spe__div27">
+              <div class="spe__div28">
+                  <p>YOUR CART</p>
+                  <svg class="icon spe__svg" width="16px" height="16px" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#333333"><polygon points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"></polygon></g></g></svg>
+              </div>
+              <div class="spe__line"></div>
+              <div id="nn" class="nns">
+              {% for item in cart %}
+                  <div class="spe__div29" id="spe__div29" id="product-{{ item.id }}">
+                      <div class="spe__div30">
+                          <img src="{{ item.product.get_thumbnail }}" class="spe__img2" alt="">
+                      </div>
+                      <div class="spe__div31">
+                          <div class="spe__div32">
+                              <p id="yy">{{ item.product.title }}</p>
+                              <p id="qu">Quantity: {{item.quantity}}</p>
+                              <p id="tp">₹{{ item.total_price }}.000</p>
+                          </div>
+                          <div class="spe__div33">
+                              
+                              <form method="post" id="remm-{{ item.id }}">
+                                  {% csrf_token %}
+                                      <button type="submit" class="es" value="{{ item.id }}"><p>Remove</p></button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+              
+              <div id="emt" style="margin-top: 0.5vw !important;"></div>
+              <div id="nig">
+                  <div class="spe__div34" id="spe__div34">
+                      <div class="spe__line"></div>
+                      <div class="spe__div35">
+                          <div class="spe__div36">
+                              <p>Subtotal</p>
+                              <p>₹{{cart.get_total_cost}}.000</p>
+                          </div>
+                          <div class="spe__div36">
+                              <div class="spe__div37">
+                                  <a href="{% url 'checkout' %}"><p>Continue to Checkout</p></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/swiper.js" %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('{{ stripe_pub_key }}');
+        var elements = stripe.elements();
+
+        var emmm = document.getElementById('emt')
+
+        var card = elements.create('card');
+
+        card.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
+
+        function stripeTokenHandler(token) {
+            var form = document.getElementById('payment-form');
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripe_token');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+
+            form.submit();
+        }
+
+
+
+        $(document).on('submit', '[id^=remm-]', function(e) {
+            e.preventDefault()
+            
+
+            var formId = $(this).attr('id');
+            var productId = formId.split('-')[1];
+
+
+            
+
+            
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'rem' %}",
+                data: {
+                    product_id: productId,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(data) {
+                    console.log('')
+                }
+            }).then(() => {
+                var emmm = document.getElementById('emt')
+                var nig = document.getElementById('nig')
+                var cartNum = document.getElementById('t')
+                var qu = document.getElementById('qu')
+                var tp = document.getElementById('tp')
+                var nav__div10 = document.getElementById('nav__div10')
+                var div__25 = document.getElementById('spe__div25')
+                var nn = document.getElementById('nn')
+                var spe__div34 = document.getElementById('spe__div34')
+
+                var fir = document.getElementById('fir')
+                var sec = document.getElementById('sec')
+                var hhh = document.getElementById('hhh')
+                var npc = document.getElementById('npc')
+
+                $.ajax({
+                    type:'GET',
+                    url:'{% url "csn" %}',
+                    dataType: 'json',
+                    cache: false,
+                    data: {},
+                    success: function(data) {
+                        var totalQuantity = 0;
+                        var totalCost = 0;
+
+                        for (var i = 0; i < data.length; i++) {
+                            totalQuantity += data[i].quantity;
+                            totalCost += parseFloat(data[i].total_price);
+                        }
+
+                        if(totalQuantity == 0) {
+                            npc.innerHTML = '<div></div>'
+                        } 
+
+                        if(totalQuantity > 0) {
+                            npc.innerHTML = `<div class="left__check6">
+                                                <button class="ww"><p>Place Order</p></button>
+                                            </div>`
+                        }
+                        
+
+                        fir.innerHTML = `<p>₹${totalCost}.000</p>`
+                        sec.innerHTML = `<p>₹${totalCost}.000</p>`
+
+                        cartNum.innerHTML = `<p id='t'> CART ( ${totalQuantity} )</p>`
+
+                        if(totalQuantity == 0) {
+                            emmm.innerHTML = '<p class="ff">Cart is Empty</p>'
+                        }
+
+                        if(totalQuantity == 0) {
+                            nig.innerHTML = '<div></div>'
+                        }
+
+                        if(totalQuantity > 0) {
+                            emmm.innerHTML = '<p></p>'
+                        }
+
+
+                        if(data) {
+                                
+                                var html = ''
+                                hhh.innerHTML = '';
+                                data.map((item) => {
+                                    html += `<div class="check__div22">
+                                            <div class="check__div23">
+                                                <div class="check__div24">
+                                                    <img src="${item.get_thumbnail}" class="check__img1" alt="">
+                                                </div>
+                                                <div class="check__div25">
+                                                    <p>${item.title}</p>
+                                                    <p>Quantity: ${item.quantity}</p>
+                                                </div>
+                                            </div>
+                                            <div class="check__div26">
+                                                <p>₹${item.total_price}.000</p>
+                                            </div>
+                                        </div>`
+
+                                })
+
+                                hhh.innerHTML = html
+                                
+                            } else {
+                                hhh.innerHTML = '<p>gone</p>'
+                            }
+
+                        if(totalQuantity > 0) {
+                            nig.innerHTML = `<div class="spe__div34" id="spe__div34">
+                        <div class="spe__line"></div>
+                        <div class="spe__div35">
+                            <div class="spe__div36">
+                                <p>Subtotal</p>
+                                <p>₹${totalCost}.000</p>
+                            </div>  
+                            <div class="spe__div36">
+                                <div class="spe__div37">
+                                    <a href="{% url 'checkout' %}"><p>Continue to Checkout</p></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                        }
+
+                        if(data) {
+                                
+                                var html = ''
+                                nn.innerHTML = '';
+                                data.map((item) => {
+                                    html += `<div class="spe__div29">
+                                        <div class="spe__div30">
+                        <img src="${item.get_thumbnail}" class="spe__img2" alt="">
+                    </div>
+                    <div class="spe__div31">
+                        <div class="spe__div32">
+                            <p id="yy">${item.title}</p>
+                            <p id="qu">Quantity: ${item.quantity}</p>
+                            <p id="tp">₹${item.total_price}.000</p>
+                        </div>
+                        <div class="spe__div33">
+                            <form method="post" id="remm-${item.id}">
+                                    {% csrf_token %}
+                                        <button type="submit" class="es" value="${item.id}"><p>Remove</p></button>
+                                </form>
+                        </div>
+                    </div>
+                                        </div>`
+
+                                })
+
+                                nn.innerHTML = html
+                            } else {
+                                nn.innerHTML = '<p>gone</p>'
+                            }
+
+                    }
+                })
+            })
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

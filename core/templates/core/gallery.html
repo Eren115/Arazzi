@@ -1,0 +1,245 @@
+{% extends "core/base.html" %} 
+{% load static %}
+
+{% block content %}
+<div class="gall__div1">
+    <div class="gall__div2">
+        <div class="gall__div3">
+            <div class="gall__div4">
+                {% for product in products %}
+                  <a data-scroll href="#{{product.hrefId}}"><p>{{ product.title }}</p></a>
+                {% endfor %}
+            </div>
+            <div class="gall__div5">
+                <div class="gall__div6">
+                    {% for product in products %}
+                        <a href="{% url 'productPage' product.slug %}">
+                            <div id="{{ product.divsId }}" class="gall__div7">
+                                <div class="gall__div8">
+                                    <img src="{{ product.thirdImage.url }}" class="gall__img1" alt="">
+                                </div>
+                                <div class="gall__div9">
+                                    <div class="gall__div10">
+                                        <p>{{ product.secondtitle }}</p>
+                                        <p>{{ product.title }}</p>
+                                        <p>₹ {{ product.price }}.000</p>
+                                    </div>
+                                    <div class="gall__div11">
+                                        <p>{{ product.firstDisc }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if cart|length == 0 %}
+  <div class="spe__div25" id="spe__div25">
+    <div class="spe__div26">
+        <div class="spe__div27">
+            <div class="spe__div28">
+                <p>YOUR CART</p>
+                <svg class="icon spe__svg" width="16px" height="16px" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#333333"><polygon points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"></polygon></g></g></svg>
+            </div>
+            <div class="spe__line"></div>
+            <div class="nn" id="nn">
+                
+            </div>
+            
+            <div id="emt" style="margin-top: 0.5vw !important;"><p>Cart is Empty</p></div>
+            <div id="nig"></div>
+            
+            </div>
+        </div>
+        </div>
+    {% else %}
+    <div class="spe__div25" id="spe__div25">
+        <div class="spe__div26">
+            <div class="spe__div27">
+                <div class="spe__div28">
+                    <p>YOUR CART</p>
+                    <svg class="icon spe__svg" width="16px" height="16px" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#333333"><polygon points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"></polygon></g></g></svg>
+                </div>
+                <div class="spe__line"></div>
+                <div id="nn" class="nns">
+                {% for item in cart %}
+                    <div class="spe__div29" id="spe__div29" id="product-{{ item.id }}">
+                        <div class="spe__div30">
+                            <img src="{{ item.product.get_thumbnail }}" class="spe__img2" alt="">
+                        </div>
+                        <div class="spe__div31">
+                            <div class="spe__div32">
+                                <p id="yy">{{ item.product.title }}</p>
+                                <p id="qu">Quantity: {{item.quantity}}</p>
+                                <p id="tp">₹{{ item.total_price }}.000</p>
+                            </div>
+                            <div class="spe__div33">
+                                
+                                <form method="post" id="remm-{{ item.id }}">
+                                    {% csrf_token %}
+                                        <button type="submit" class="es" value="{{ item.id }}"><p>Remove</p></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div id="emt" style="margin-top: 0.5vw !important;"></div>
+                <div id="nig">
+                    <div class="spe__div34" id="spe__div34">
+                        <div class="spe__line"></div>
+                        <div class="spe__div35">
+                            <div class="spe__div36">
+                                <p>Subtotal</p>
+                                <p>₹{{cart.get_total_cost}}.000</p>
+                            </div>
+                            <div class="spe__div36">
+                                <div class="spe__div37">
+                                    <a href="{% url 'checkout' %}"><p>Continue to Checkout</p></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock content %}
+
+{% block script %}
+<script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+        speed: 1000,
+        speedAsDuration: true,
+        easing: 'easeInOutCubic',
+    });
+
+    var emmm = document.getElementById('emt')
+
+
+    $(document).on('submit', '[id^=remm-]', function(e) {
+            e.preventDefault()
+            
+
+            var formId = $(this).attr('id');
+            var productId = formId.split('-')[1];
+
+
+            
+
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'rem' %}",
+                data: {
+                    product_id: productId,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(data) {
+                    console.log('')
+                }
+            }).then(() => {
+                var emmm = document.getElementById('emt')
+                var nig = document.getElementById('nig')
+                var cartNum = document.getElementById('t')
+                var qu = document.getElementById('qu')
+                var tp = document.getElementById('tp')
+                var nav__div10 = document.getElementById('nav__div10')
+                var div__25 = document.getElementById('spe__div25')
+                var nn = document.getElementById('nn')
+                var spe__div34 = document.getElementById('spe__div34')
+
+                $.ajax({
+                    type:'GET',
+                    url:'{% url "csn" %}',
+                    dataType: 'json',
+                    cache: false,
+                    data: {},
+                    success: function(data) {
+                        var totalQuantity = 0;
+                        var totalCost = 0;
+
+                        for (var i = 0; i < data.length; i++) {
+                            totalQuantity += data[i].quantity;
+                            totalCost += parseFloat(data[i].total_price);
+                        }
+
+                        
+
+                        cartNum.innerHTML = `<p id='t'> CART ( ${totalQuantity} )</p>`
+
+                        if(totalQuantity == 0) {
+                            emmm.innerHTML = '<p class="ff">Cart is empty</p>'
+                        }
+
+                        if(totalQuantity == 0) {
+                            nig.innerHTML = '<div></div>'
+                        }
+
+                        if(totalQuantity > 0) {
+                            emmm.innerHTML = '<p></p>'
+                        }
+
+                        if(totalQuantity > 0) {
+                            nig.innerHTML = `<div class="spe__div34" id="spe__div34">
+                        <div class="spe__line"></div>
+                        <div class="spe__div35">
+                            <div class="spe__div36">
+                                <p>Subtotal</p>
+                                <p>₹${totalCost}.000</p>
+                            </div>  
+                            <div class="spe__div36">
+                                <div class="spe__div37">
+                                    <a href="{% url 'checkout' %}"><p>Continue to Checkout</p></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                        }
+
+                        if(data) {
+                                
+                                var html = ''
+                                nn.innerHTML = '';
+                                data.map((item) => {
+                                    html += `<div class="spe__div29">
+                                        <div class="spe__div30">
+                        <img src="${item.get_thumbnail}" class="spe__img2" alt="">
+                    </div>
+                    <div class="spe__div31">
+                        <div class="spe__div32">
+                            <p id="yy">${item.title}</p>
+                            <p id="qu">Quantity: ${item.quantity}</p>
+                            <p id="tp">₹${item.total_price}.000</p>
+                        </div>
+                        <div class="spe__div33">
+                            <form method="post" id="remm-${item.id}">
+                                    {% csrf_token %}
+                                        <button type="submit" class="es" value="${item.id}"><p>Remove</p></button>
+                                </form>
+                        </div>
+                    </div>
+                                        </div>`
+
+                                })
+
+                                nn.innerHTML = html
+                                
+                            } else {
+                                nn.innerHTML = '<p>gone</p>'
+                            }
+
+
+                
+                    }
+                })
+            })
+    });
+
+</script>
+{% endblock script %}
